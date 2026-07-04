@@ -141,3 +141,132 @@ GPS Location  Tuple beacuse location imuutable h
 Previous Diseases  Tuple kiun k pechla data change nhi hota
 Next Appointment (abhi schedule nahi hui) None kiun k abhi koi value assign nhi hoi 
 '''
+
+#***************Operators************************
+#Task 1:
+# Hospital Billing System - Demonstrating All Major Python Operators
+
+# ---------------------------------------------------
+# Patient & Charges Data
+# ---------------------------------------------------
+patient_name = "Ahmed Khan"
+is_insured = True
+is_senior_citizen = True
+days_admitted = 5
+room_charges_per_day = 3000
+medicine_charges = 2500
+lab_test_charges = 4000
+consultation_fee = 1500
+insurance_coverage_percent = 40
+senior_discount_percent = 10
+
+# ---------------------------------------------------
+# 1. ARITHMETIC OPERATORS ( + - * / // % ** )
+# ---------------------------------------------------
+total_room_charges = room_charges_per_day * days_admitted          # multiplication (yhn pr total room k charges nnikalny k liye multiply ka use kia k per day room k kia chargs hyn aur kitny din se admit h to us waqt se lykr current day tk k total bill kitna hoa)
+subtotal = total_room_charges + medicine_charges + lab_test_charges + consultation_fee  # addition  (sari fees milakr total bill kitna hoa is liye use kia gaya h )
+average_daily_cost = subtotal / days_admitted                      # division (float)  (daily cost ka average niaklny k liye )
+full_days = subtotal // 1000                                       # floor division
+remainder_amount = subtotal % 1000                                 # modulus (remainder amount wapas kitny krny hyn usko chezk krny k liye modules lagaya )
+loyalty_bonus = 2 ** 3                                              # exponent (sample bonus points)
+
+# ---------------------------------------------------
+# 2. ASSIGNMENT OPERATORS ( = += -= *= /= )
+# ---------------------------------------------------
+final_bill = subtotal   # simple assignment (= ka use finall bill main subtotal ki value assign krny k liye hoa )
+
+if is_insured:
+    discount_amount = final_bill * (insurance_coverage_percent / 100)
+    final_bill -= discount_amount     # -= operator final bill i amount se discounted amount ko minus krny k liye lagaya
+
+if is_senior_citizen:
+    senior_discount = final_bill * (senior_discount_percent / 100)
+    final_bill -= senior_discount     # -= operator final bill amount main se senior citizen ka jo discounted amount h wo niaklny k lliye lagaya
+
+late_fee = 500
+final_bill += late_fee                # += operator final bill main late fee include krny k liye lagaya
+
+# ---------------------------------------------------
+# 3. COMPARISON OPERATORS ( == != > < >= <= )
+# ---------------------------------------------------
+is_bill_high = final_bill > 10000 #> ka use is liye hoa taky ye chekc kiya ja sky k final bill ki amount 100000 se ziyada h ya nhi 
+is_bill_low = final_bill < 5000 #< ka use is liye hoa taky ye chekc kiya ja sky k final bill ki amount 100000 se kam h ya nhi
+is_exact_5_days = days_admitted == 5 # == ka use exact 5 days hyn ya nhi ye check krny k liye hoa 
+not_insured = is_insured != True #!= ka use ye krny k  liye hoa k insured h ya nhi 
+# ---------------------------------------------------
+# 4. LOGICAL OPERATORS ( and or not )
+# ---------------------------------------------------
+eligible_for_extra_discount = is_insured and is_senior_citizen        # and is liye use kiya taky check kiya jaye k patent insured aur senior citizen h yanhi 
+needs_review = is_bill_high or not is_insured                         # or / not  patietn ko review ki need h agar uska bill high ya wo insured nhi hao to in main se ek bhi conidtion true hogi to usko review ki need hogi other wise no 
+priority_case = not is_insured                                        # not ka use priority check krny k liye hoa k agar insured nhi  h patient to priority den gy otherwise no 
+
+# ---------------------------------------------------
+# 5. IDENTITY OPERATORS ( is / is not )
+# ---------------------------------------------------
+discharge_date = None 
+is_discharge_pending = discharge_date is None # is ka use es liye hoa k chekc kiya jae k discharge date asign hoi h ya nhi 
+payment_status = "Paid"
+is_not_pending = payment_status is not None # i not ka use es liye hoa taky check kiya  jaye k payment status paid to nhi hoa 
+# ---------------------------------------------------
+# 6. MEMBERSHIP OPERATORS ( in / not in )
+# ---------------------------------------------------
+available_departments = ["Cardiology", "Neurology", "Orthopedics", "General"]
+patient_department = "Cardiology"
+is_valid_department = patient_department in available_departments # in ka use is liye hoa taky check kiya jae k availiable dept main patient dept h ya nhi 
+is_invalid_service = "Dental" not in available_departments
+
+'''
+Task 2
+Is code ko dekho:
+patient_age = 65
+sugar_level = 210
+allergies = ["Penicillin", "Dust"]
+doctor = None
+
+is_high_risk = patient_age > 60 and sugar_level > 180
+
+if "Penicillin" in allergies:
+    print("Alert")
+
+if doctor is None:
+    print("Assign Doctor")
+
+Batana:
+> kis type ka operator hai?
+and?
+in?
+is?
+=?
+Aur har operator yahan kyun use hua?
+'''
+patient_age = 65
+sugar_level = 210
+allergies = ["Penicillin", "Dust"]
+doctor = None
+
+is_high_risk = patient_age > 60 and sugar_level > 180
+
+if "Penicillin" in allergies:
+    print("Alert")
+
+if doctor is None:
+    print("Assign Doctor")
+
+# > comparision operator h aur ye is liye use hoa taky check kiya jaye k patient age 60 se above h ya  nhi aur and logical operator h iska use is liye hoa taky check kiya jaye k patietn age 60 se aur suger level 180 se above h ya nhi matlab ye doonon cheezyn hyn ya nhi agar hyn to usko store krdo isrosk high nam k variabl main
+# in membership operator h iska use is liye hoa taky dekha jaye k allergies main Penicillin  h ya nhi agar h to ALert print ho is identity operator h ye use hoa taky dekha jaye  doctor assgin hoa ya nhi , = assignment operaotr h iska use is liye hoa taky patient_age > 60 and sugar_level > 180 ko is_high_risk main  store kiya jaye
+
+'''
+Task 3 (Engineer Thinking)
+Suppose tum AI Hospital bana rahe ho.
+Neeche diye gaye scenarios mein kaunsa operator use hoga aur kyun?
+Bill mein medicine charges add karne hain.
++ addition krny k liye yhi arithmetic operatr k use hta h 
+Check karna hai patient ki age 18 se zyada hai ya nahi.
+> is liye kiunk chota bara check krny k liye yhi comparisio operator ka use hota  h
+Check karna hai patient diabetic aur hypertensive dono hai.
+and logical operator kiun k donon cheezyn check krni hyn donon condition true hon is ky liye and operator ka use hota h 
+Check karna hai "Aspirin" allergies list mein hai ya nahi.
+in ye item is list ka  member h ya nhi ye dekhny k liye in membership operator ka use hotah 
+Check karna hai doctor abhi assign nahi hua.
+dontor ki identity check krny k liye is operator ka use hoga 
+'''
