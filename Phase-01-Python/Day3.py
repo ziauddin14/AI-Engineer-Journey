@@ -195,5 +195,178 @@ Kyun: Ye sabse critical check hai is puri list mein — humein sirf ye jaanna ha
 Business Impact: Ye life-critical hai. Agar "emergency" detect na ho (case-sensitivity ki wajah se, ya extra spaces ki wajah se), to system us patient ko normal priority queue mein daal dega jabke unhe turant attention chahiye thi. Isliye yaha .lower() aur in dono ka combination zaroori hai — kabhi bhi is check ko halka mat lena.
 '''
 
+#****************Dictionaries Deep Dive********************
+"""
+Hospital Management System - Dictionary Operations Demo
+Covers: Create, Read, Update, Delete, .get(), .keys(), .values(), .items(), Nested Dictionary
+Author: Zia's AI Engineer Journey - Phase 01 (Python)
+"""
+# CREATE -> Building a new dictionary (patient record) if remove we can't apply others dict operation on system
+print("\n--- CREATE : Adding a New Patient Record ---")
 
+patient = {
+    "name": "Ahmed",
+    "age": 34,
+    "department": "ICU",
+    "admitted": True
+}
+print(f"New patient record created: {patient}")
+
+# Adding a NEW key to an existing dictionary is also a "create" operation
+patient["phone"] = "0301-1234567"
+print(f"After adding 'phone' key: {patient}")
+
+# READ -> Accessing values from a dictionary
+print("\n--- READ : Accessing Patient Details ---")
+
+print(f"Patient name: {patient['name']}")
+print(f"Patient department: {patient['department']}")
+# Direct key access with [] raises an error if key doesn't exist:
+# print(patient["blood_group"])  --> This would raise: KeyError
+
+# UPDATE -> Changing an existing value
+print("\n--- UPDATE : Changing Patient's Department ---")
+
+print(f"Before update: {patient['department']}")
+patient["department"] = "General"   # patient moved from ICU to General ward
+print(f"After update:  {patient['department']}")
+
+# .update() can change/add multiple keys at once
+patient.update({"age": 35, "condition": "Stable"})
+print(f"After bulk update: {patient}")
+
+# DELETE -> Removing a key from a dictionary
+print("\n--- DELETE : Removing a Key ---")
+
+print(f"Before delete: {patient}")
+del patient["condition"]
+print(f"After 'del patient[\"condition\"]': {patient}")
+
+# .pop() deletes AND returns the removed value (useful when you need it)
+removed_phone = patient.pop("phone")
+print(f"Removed phone number: {removed_phone}")
+print(f"After pop: {patient}")
+
+# .get() -> Safe access (no error even if key is missing)
+print("\n--- .get() : Safe Key Access ---")
+
+blood_group = patient.get("blood_group", "Not Recorded")
+print(f"Blood group (missing key, with default): {blood_group}")
+
+department = patient.get("department", "Unknown")
+print(f"Department (existing key): {department}")
+
+# .keys() -> Getting all field names
+print("\n--- .keys() : Listing All Fields in Record ---")
+
+all_fields = patient.keys()
+print(f"Fields recorded for this patient: {list(all_fields)}")
+
+# .values() -> Getting all stored values
+print("\n--- .values() : Listing All Stored Values ---")
+
+all_values = patient.values()
+print(f"Values in this patient record: {list(all_values)}")
+
+# .items() -> Looping through key-value pairs together
+print("\n--- .items() : Printing Full Record (Key + Value) ---")
+
+for field, value in patient.items():
+    print(f"{field}: {value}")
+
+# NESTED DICTIONARY -> Multiple patients, each with their own record
+hospital_patients = {
+    "P001": {
+        "name": "Ahmed",
+        "age": 35,
+        "department": "General",
+        "vitals": {"heart_rate": 78, "oxygen": 96}   # dictionary inside dictionary
+    },
+    "P002": {
+        "name": "Sara",
+        "age": 28,
+        "department": "ICU",
+        "vitals": {"heart_rate": 110, "oxygen": 89}
+    }
+}
+
+# READ from nested dictionary
+print(f"\nPatient P002 name: {hospital_patients['P002']['name']}")
+print(f"Patient P002 heart rate: {hospital_patients['P002']['vitals']['heart_rate']}")
+
+# UPDATE a value deep inside a nested dictionary
+hospital_patients["P002"]["vitals"]["oxygen"] = 93
+print(f"Updated P002 oxygen level: {hospital_patients['P002']['vitals']['oxygen']}")
+
+'''
+Task 2
+Ye code dekho.
+patient = {
+    "name": "Ahmed",
+    "age": 45,
+    "doctor": None
+}
+print(patient["name"])
+print(patient.get("doctor"))
+patient["age"] = 46
+patient["blood_group"] = "O+"
+del patient["doctor"]
+Batana:
+[] ka purpose? ===> key ko bulany read krny k liye
+.get() kyun use hua? dict se key ko acces krny kliye
+Update kahan hua? age wali key pr update hoa
+Create kahan hua? blood group wali key create hoi
+Delete kahan hua? doctor wali key delete hoi
+Aur sabse important.
+Agar .get() ki jagah patient["doctor"] hota aur "doctor" key exist na karti...
+To kya hota?
+error aata 
+Aur kyun?
+kiun k patient["doctor"] <<==is tarah access krny se error throw hota system crashed hojata 
+get lgany se None return hoga system crash nhi hoga 
+'''
+
+'''
+Task 3 (Engineer Thinking)
+Tum AI Hospital bana rahe ho.
+Neeche batao kis situation mein dictionary use karoge aur kyun?
+Patient Profile ==> dict , key value pair ki waja se (keys ye hongi ==> name, age, blood group, doctor)
+Doctor Profile ==> dict , key value paie(keys ye hongi > name, specialization, experiance, patient )
+AI Prediction Result ==> dict, key value pair (response = {
+
+    "model": "...",
+
+    "usage": {
+
+        "tokens": 250
+
+    },
+
+    "choices": [...]
+
+})
+Lab Test Report ==> dict , 
+Hospital Configuration dict, 
+API Response dict
+Logged-in User Session dict
+Chatbot Response ==> dictresponse = {
+
+    "model": "...",
+
+    "usage": {
+
+        "tokens": 250
+
+    },
+
+    "choices": [...]
+
+} 
+Har ek ke liye batao:
+Dictionary kyun?
+Kaunsi keys hongi?
+Kaunsi values hongi?
+Agar list use kar dein to kya problem hogi?
+list ki sorat main wohi indexinng wala masla hoga 
+'''
 
