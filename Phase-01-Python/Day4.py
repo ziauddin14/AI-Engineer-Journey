@@ -72,3 +72,63 @@ def admit_emergency_patient(name, heart_rate, department):
     finally:
         # finally -> always runs, success or failure
         print(f"Admission process completed for: {name}")
+
+
+#********************File Handling*****************
+'''
+Task 2 (Concept)
+Ye code dekho:
+with open("report.txt", "w") as file:
+    file.write("Patient Stable")
+    
+Batana:
+with ka purpose? for closing file automatically
+open() ka purpose? for opening file
+"w" kyun use hua? for identifying file mode
+file.write() kya karta hai? for writing in the file
+close() kahaan hua? automaticaly with the help of with keyword
+Agar "a" use karte to kya difference hota? porana data bhi rehta aur Patient Stable file k last main jaa kr add hojata 
+Agar "r" use karte aur file exist na karti to kya ho sakta hai? error aajata
+'''
+
+'''
+Task 3 (Engineer Thinking)
+Tum AI Hospital bana rahe ho.
+Neeche batao kis cheez ko file mein save karoge aur kyun:
+Patient Reports --> a mode (agar w mode use kiya to previous reports chali jayegn gin)
+AI Predictions --> r mode
+Chatbot Conversations a mode (agar w mode use kiya to porani conversation ka data chala jayega jisse cahtbot pata hi nhi laga payega k user kia baaat kr rha tha )
+Error Logs  w mode
+Doctor Notes a mode
+Daily Revenue a mode
+Appointment History a mode
+Har item ke liye batao:
+Kis mode (r, w, a) ka use zyada hoga?
+Agar galat mode choose kar diya to business par kya impact padega?
+'''
+
+"""
+Hospital Management System - File Handling Demo
+Covers: open(), "r", "w", "a", close(), with open()
+Author: Zia's AI Engineer Journey - Phase 01 (Python)
+"""
+# SCENARIO 5: FULL FLOW -> Daily discharge log system
+
+discharged_today = ["Ahmed - Recovered", "Sara - Transferred to General"]
+
+# Step 1: Write today's discharge log (overwrite old log with "w")
+with open("discharge_log.txt", "w") as file:
+    file.write("=== Discharge Log ===\n")
+    for entry in discharged_today:
+        file.write(entry + "\n")
+print("Step 1: New discharge log created.")
+
+# Step 2: A late discharge comes in -> append it with "a"
+with open("discharge_log.txt", "a") as file:
+    file.write("Zain - Discharged (late entry)\n")
+print("Step 2: Late discharge appended to the log.")
+
+# Step 3: Read back the final log to confirm everything is correct
+with open("discharge_log.txt", "r") as file:
+    print("\nStep 3: Final discharge log:")
+    print(file.read())
